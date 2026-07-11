@@ -1,16 +1,482 @@
+<div class="sg-wrapper">
 
+  <div class="sg-grid">
+    {%- for block in section.blocks -%}
+      {%- assign product = block.settings.product -%}
+      <div class="sg-cell" {{ block.shopify_attributes }}>
+        {%- if block.settings.image != blank -%}
+          <img
+            src="{{ block.settings.image | image_url: width: 800 }}"
+            alt="{{ block.settings.image.alt | default: product.title }}"
+            loading="lazy"
+            width="{{ block.settings.image.width }}"
+            height="{{ block.settings.image.height }}"
+            class="sg-cell__img"
+          >
+        {%- else -%}
+          <div class="sg-cell__placeholder"></div>
+        {%- endif -%}
 
+        {%- if product != blank -%}
+          <button
+            type="button"
+            class="sg-hotspot"
+            style="left: {{ block.settings.hotspot_x }}%; top: {{ block.settings.hotspot_y }}%;"
+            data-product-handle="{{ product.handle }}"
+            aria-label="View product: {{ product.title | escape }}"
+          >
+            <span class="sg-hotspot__icon">+</span>
+          </button>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
 
+</div>
 
+{%- comment -%}  SHARED PRODUCT MODAL  {%- endcomment -%}
+<div class="sg-modal" id="sg-modal-{{ section.id }}" aria-hidden="true">
+  <div class="sg-modal__backdrop" data-sg-close></div>
+  <div class="sg-modal__box" role="dialog" aria-modal="true">
+    <button type="button" class="sg-modal__close" data-sg-close aria-label="Close">&times;</button>
 
+    <div class="sg-modal__loading">Loading...</div>
 
+    <div class="sg-modal__content" hidden>
+      <div class="sg-modal__media">
+        <img class="sg-modal__img" src="" alt="">
+      </div>
+      <div class="sg-modal__info">
+        <h3 class="sg-modal__title"></h3>
+        <p class="sg-modal__price"></p>
+        <div class="sg-modal__desc"></div>
 
+        <div class="sg-modal__option sg-modal__option--color" hidden>
+          <p class="sg-modal__option-label">Color</p>
+          <div class="sg-swatches"></div>
+        </div>
 
+        <div class="sg-modal__option sg-modal__option--size" hidden>
+          <p class="sg-modal__option-label">Size</p>
+          <select class="sg-size-select">
+            <option value="">Choose your size</option>
+          </select>
+        </div>
 
+        <button type="button" class="sg-add-to-cart">
+          <span class="sg-add-to-cart__label">Add to Cart</span>
+          <span class="sg-arrow">&#8594;</span>
+        </button>
+        <p class="sg-modal__error" hidden></p>
+      </div>
+    </div>
+  </div>
+</div>
 
+<style>
+  #shopify-section-{{ section.id }} .sg-wrapper {
+    max-width: {{ section.settings.container_width }}px;
+    margin: 0 auto;
+    padding: {{ section.settings.section_padding }}px 20px;
+  }
 
+  #shopify-section-{{ section.id }} .sg-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: {{ section.settings.grid_gap }}px;
+  }
 
+  #shopify-section-{{ section.id }} .sg-cell {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    background-color: #f2f2f2;
+  }
 
+  #shopify-section-{{ section.id }} .sg-cell__img,
+  #shopify-section-{{ section.id }} .sg-cell__placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .sg-hotspot {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.85);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    color: #000;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .sg-hotspot:hover {
+    background-color: #FFD500;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+
+  /* ---------- MODAL ---------- */
+  #shopify-section-{{ section.id }} .sg-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .sg-modal.is-open {
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .sg-modal__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  #shopify-section-{{ section.id }} .sg-modal__box {
+    position: relative;
+    z-index: 1;
+    background: #fff;
+    max-width: 460px;
+    width: 92%;
+    margin: 6vh auto;
+    max-height: 88vh;
+    overflow-y: auto;
+    border-radius: 4px;
+    padding: 28px;
+  }
+
+  #shopify-section-{{ section.id }} .sg-modal__close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    color: #000;
+  }
+
+  #shopify-section-{{ section.id }} .sg-modal__loading {
+    text-align: center;
+    padding: 40px 0;
+    color: #666;
+  }
+
+  #shopify-section-{{ section.id }} .sg-modal__media {
+    width: 120px;
+    height: 150px;
+    float: left;
+    margin-right: 20px;
+    overflow: hidden;
+    background: #f2f2f2;
+  }
+
+  #shopify-section-{{ section.id }} .sg-modal__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .sg-modal__title {
+    margin: 0 0 8px;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  #shopify-section-{{ section.id }} .sg-modal__price {
+    margin: 0 0 14px;
+    font-size: 16px;
+    color: #000;
+  }
+
+  #shopify-section-{{ section.id }} .sg-modal__desc {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .sg-modal__info {
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .sg-modal__option {
+    clear: both;
+    margin-bottom: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .sg-modal__option-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #666;
+    margin: 0 0 8px;
+  }
+
+  #shopify-section-{{ section.id }} .sg-swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .sg-swatch {
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    background: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+
+  #shopify-section-{{ section.id }} .sg-swatch.is-active {
+    border: 2px solid #000;
+    font-weight: 600;
+  }
+
+  #shopify-section-{{ section.id }} .sg-size-select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    font-size: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .sg-add-to-cart {
+    clear: both;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 14px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background-color 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .sg-add-to-cart:hover {
+    background-color: #FFD500;
+    color: #000;
+  }
+
+  #shopify-section-{{ section.id }} .sg-add-to-cart:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  #shopify-section-{{ section.id }} .sg-modal__error {
+    color: #c0392b;
+    font-size: 13px;
+    margin-top: 10px;
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} .sg-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .sg-modal__media {
+      width: 90px;
+      height: 110px;
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    var sectionId = {{ section.id | json }};
+    var root = document.getElementById('shopify-section-' + sectionId);
+    if (!root) return;
+
+    var modal = document.getElementById('sg-modal-' + sectionId);
+    var loadingEl = modal.querySelector('.sg-modal__loading');
+    var contentEl = modal.querySelector('.sg-modal__content');
+    var imgEl = modal.querySelector('.sg-modal__img');
+    var titleEl = modal.querySelector('.sg-modal__title');
+    var priceEl = modal.querySelector('.sg-modal__price');
+    var descEl = modal.querySelector('.sg-modal__desc');
+    var colorWrap = modal.querySelector('.sg-modal__option--color');
+    var swatchesEl = modal.querySelector('.sg-swatches');
+    var sizeWrap = modal.querySelector('.sg-modal__option--size');
+    var sizeSelect = modal.querySelector('.sg-size-select');
+    var addBtn = modal.querySelector('.sg-add-to-cart');
+    var addBtnLabel = modal.querySelector('.sg-add-to-cart__label');
+    var errorEl = modal.querySelector('.sg-modal__error');
+
+    var currentProduct = null;
+    var selectedOptions = {};
+
+    function formatMoney(cents, currency) {
+      var amount = (cents / 100).toFixed(2);
+      return currency ? (amount + ' ' + currency) : amount;
+    }
+
+    function openModal() {
+      modal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    modal.addEventListener('click', function (e) {
+      if (e.target.hasAttribute('data-sg-close')) closeModal();
+    });
+
+    function findVariant() {
+      if (!currentProduct) return null;
+      return currentProduct.variants.find(function (v) {
+        return currentProduct.options.every(function (optName, idx) {
+          var key = 'option' + (idx + 1);
+          return !selectedOptions[optName] || v[key] === selectedOptions[optName];
+        });
+      });
+    }
+
+    function updatePriceAndButton() {
+      var variant = findVariant();
+      if (variant) {
+        priceEl.textContent = formatMoney(variant.price, {{ shop.money_format | json | strip_html }});
+        addBtn.disabled = !variant.available;
+        addBtnLabel.textContent = variant.available ? 'Add to Cart' : 'Sold Out';
+        addBtn.dataset.variantId = variant.id;
+      } else {
+        addBtn.disabled = true;
+        addBtnLabel.textContent = 'Unavailable';
+      }
+    }
+
+    function renderProduct(product) {
+      currentProduct = product;
+      selectedOptions = {};
+      errorEl.hidden = true;
+
+      imgEl.src = product.featured_image || (product.images[0] || '');
+      imgEl.alt = product.title;
+      titleEl.textContent = product.title;
+      descEl.innerHTML = (product.description || '').split('. ').slice(0, 2).join('. ');
+
+      swatchesEl.innerHTML = '';
+      sizeSelect.innerHTML = '<option value="">Choose your size</option>';
+      colorWrap.hidden = true;
+      sizeWrap.hidden = true;
+
+      product.options.forEach(function (optionName, idx) {
+        var key = 'option' + (idx + 1);
+        var values = [];
+        product.variants.forEach(function (v) {
+          if (values.indexOf(v[key]) === -1) values.push(v[key]);
+        });
+
+        var isColor = /colou?r/i.test(optionName);
+
+        if (isColor) {
+          colorWrap.hidden = false;
+          values.forEach(function (val, i) {
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'sg-swatch' + (i === 0 ? ' is-active' : '');
+            btn.textContent = val;
+            btn.addEventListener('click', function () {
+              swatchesEl.querySelectorAll('.sg-swatch').forEach(function (s) { s.classList.remove('is-active'); });
+              btn.classList.add('is-active');
+              selectedOptions[optionName] = val;
+              updatePriceAndButton();
+            });
+            swatchesEl.appendChild(btn);
+            if (i === 0) selectedOptions[optionName] = val;
+          });
+        } else {
+          sizeWrap.hidden = false;
+          values.forEach(function (val) {
+            var opt = document.createElement('option');
+            opt.value = val;
+            opt.textContent = val;
+            sizeSelect.appendChild(opt);
+          });
+          sizeSelect.addEventListener('change', function () {
+            selectedOptions[optionName] = sizeSelect.value;
+            updatePriceAndButton();
+          });
+        }
+      });
+
+      updatePriceAndButton();
+    }
+
+    addBtn.addEventListener('click', function () {
+      var variantId = addBtn.dataset.variantId;
+      if (!variantId) return;
+      errorEl.hidden = true;
+      addBtn.disabled = true;
+
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: variantId, quantity: 1 })
+      })
+        .then(function (res) {
+          if (!res.ok) return res.json().then(function (data) { throw new Error(data.description || 'Could not add to cart'); });
+          return res.json();
+        })
+        .then(function () {
+          addBtnLabel.textContent = 'Added!';
+          document.dispatchEvent(new CustomEvent('cart:updated'));
+          setTimeout(function () { addBtnLabel.textContent = 'Add to Cart'; addBtn.disabled = false; }, 1500);
+        })
+        .catch(function (err) {
+          errorEl.textContent = err.message;
+          errorEl.hidden = false;
+          addBtn.disabled = false;
+        });
+    });
+
+    root.querySelectorAll('.sg-hotspot').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var handle = btn.dataset.productHandle;
+        if (!handle) return;
+
+        openModal();
+        loadingEl.hidden = false;
+        contentEl.hidden = true;
+
+        fetch('/products/' + handle + '.js')
+          .then(function (res) { return res.json(); })
+          .then(function (product) {
+            renderProduct(product);
+            loadingEl.hidden = true;
+            contentEl.hidden = false;
+          })
+          .catch(function () {
+            loadingEl.textContent = 'Could not load product.';
+          });
+      });
+    });
+  })();
+</script>
 
 {% schema %}
 {
@@ -48,6 +514,4 @@
     }
   ]
 }
-
-
 {% endschema %}
