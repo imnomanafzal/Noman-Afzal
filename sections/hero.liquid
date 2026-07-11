@@ -1,7 +1,7 @@
 
 <div class="hb-wrapper" style="--bg-color: {{ section.settings.header_bg_color }};">
 
-  {%- comment -%} ================= HEADER BAR ================= {%- endcomment -%}
+  {%- comment -%}  HEADER BAR  {%- endcomment -%}
   <div class="hb-header">
     <div class="hb-header__logo">
       {%- if section.settings.header_logo_type == 'image' and section.settings.header_logo_image != blank -%}
@@ -39,7 +39,7 @@
   </div>
 
 
- {%- comment -%} ================= HERO SECTION ================= {%- endcomment -%}
+ {%- comment -%}  HERO SECTION  {%- endcomment -%}
 
 
   <div class="hb-hero" style="background-image: url('{{ section.settings.hero_bg_image | image_url: width: 1800 }}');">
@@ -61,7 +61,7 @@
   </div>
 
 
- {%- comment -%} ================= BOTTOM STRIP TEXT ================= {%- endcomment -%}
+ {%- comment -%} BOTTOM STRIP TEXT {%- endcomment -%}
   {%- if section.settings.bottom_text != blank -%}
     <div class="hb-bottom-strip" style="background-color: {{ section.settings.bottom_bg_color }};">
       <p style="color: {{ section.settings.bottom_text_color }}; font-size: {{ section.settings.bottom_text_size }}px;">
@@ -79,7 +79,7 @@
     width: 100%;
   }
 
-/* ---------- HEADER BAR ---------- */
+/*  HEADER BAR  */
   #shopify-section-{{ section.id }} .hb-header {
     display: flex;
     align-items: center;
@@ -91,9 +91,69 @@
     flex-wrap: wrap;
   }
 
+#shopify-section-{{ section.id }} .hb-header__logo {
+    flex: 0 0 auto;
+    order: 1;
+  }
+
+  #shopify-section-{{ section.id }} .hb-header__logo img {
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .hb-header__logo-text {
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: #000;
+    text-transform: uppercase;
+  }
+
+ #shopify-section-{{ section.id }} .hb-header__center {
+    flex: 1 1 auto;
+    min-width: 200px;
+    order: 2;
+  }
+
+  #shopify-section-{{ section.id }} .hb-header__center p {
+    margin: 0;
+    color: #333;
+  }
+
+    #shopify-section-{{ section.id }} .hb-align-left { text-align: left; }
+  #shopify-section-{{ section.id }} .hb-align-center { text-align: center; }
+  #shopify-section-{{ section.id }} .hb-align-right { text-align: right; }
+
+  #shopify-section-{{ section.id }} .hb-header__cta {
+    flex: 0 0 auto;
+    order: 3;
+  }
+
+   /* BUTTONS */
+  #shopify-section-{{ section.id }} .hb-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 22px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .hb-arrow {
+    transition: transform 0.25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .hb-btn:hover .hb-arrow {
+    transform: translateX(4px);
+  }
 
 
-
+  
 </style>
 
 
