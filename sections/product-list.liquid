@@ -1,0 +1,53 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% schema %}
+{
+  "name": "Shoppable Gallery",
+  "settings": [
+    { "type": "range", "id": "container_width", "min": 800, "max": 1600, "step": 20, "unit": "px", "label": "Max container width", "default": 1200 },
+    { "type": "range", "id": "section_padding", "min": 0, "max": 100, "step": 4, "unit": "px", "label": "Section padding (top/bottom)", "default": 60 },
+    { "type": "range", "id": "grid_gap", "min": 0, "max": 40, "step": 2, "unit": "px", "label": "Grid gap", "default": 16 },
+    { "type": "collection", "id": "source_collection", "label": "Collection (optional reference)", "info": "Only used as a reference when picking products per block below; products from any collection can still be picked." }
+  ],
+  "blocks": [
+    {
+      "type": "image_product",
+      "name": "Product Image",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "product", "id": "product", "label": "Linked product" },
+        { "type": "range", "id": "hotspot_x", "min": 0, "max": 100, "step": 1, "unit": "%", "label": "Hotspot X position", "default": 50 },
+        { "type": "range", "id": "hotspot_y", "min": 0, "max": 100, "step": 1, "unit": "%", "label": "Hotspot Y position", "default": 50 }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Shoppable Gallery",
+      "blocks": [
+        { "type": "image_product" },
+        { "type": "image_product" },
+        { "type": "image_product" },
+        { "type": "image_product" },
+        { "type": "image_product" },
+        { "type": "image_product" }
+      ]
+    }
+  ]
+}
+
+
+{% endschema %}
