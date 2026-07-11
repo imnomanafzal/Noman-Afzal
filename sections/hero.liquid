@@ -48,7 +48,7 @@
       <h1 class="hb-hero__heading" style="--heading-size-desktop: {{ section.settings.hero_heading_size }}px; --heading-size-mobile: {{ section.settings.hero_heading_size_mobile }}px;">
         {{ section.settings.hero_heading }}
       </h1>
-      <div class="hb-hero__desc" style="font-size:20px;">
+      <div class="hb-hero__desc">
         {{ section.settings.hero_description }}
       </div>
       {%- if section.settings.hero_button_label != blank -%}
@@ -199,7 +199,7 @@
   #shopify-section-{{ section.id }} .hb-hero__content {
     position: relative;
     z-index: 2;
-   
+    padding: 60px;
     width: 600px;
     max-width: 100%;
   }
@@ -215,7 +215,7 @@
   #shopify-section-{{ section.id }} .hb-hero__desc {
     margin-bottom: 24px;
     color: #333;
-    font-size: 15px;
+    font-size: 20px;
     line-height: 1.5;
   }
 
