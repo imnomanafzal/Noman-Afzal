@@ -42,33 +42,60 @@
 
     <div class="sg-modal__loading">Loading...</div>
 
-    <div class="sg-modal__content" hidden>
-      <div class="sg-modal__media">
-        <img class="sg-modal__img" src="" alt="">
+<div class="sg-modal__content" hidden>
+
+  <div class="sg-modal__top">
+    <div class="sg-modal__media">
+      <img class="sg-modal__img" src="" alt="">
+    </div>
+
+    <div class="sg-modal__product-details">
+      <h3 class="sg-modal__title"></h3>
+      <p class="sg-modal__price"></p>
+      <div class="sg-modal__desc"></div>
+    </div>
+  </div>
+
+  <div class="sg-modal__options">
+    <div class="sg-modal__option sg-modal__option--color" hidden>
+      <p class="sg-modal__option-label">Color</p>
+      <div class="sg-swatches"></div>
+    </div>
+
+    <div class="sg-modal__option sg-modal__option--size" hidden>
+      <p class="sg-modal__option-label">Size</p>
+
+      <div class="sg-size-wrapper">
+        <select class="sg-size-select">
+          <option value="">Choose your size</option>
+        </select>
+
+        <span class="sg-size-arrow">
+          <svg
+            width="14"
+            height="8"
+            viewBox="0 0 14 8"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M1 1L7 7L13 1"
+              stroke="currentColor"
+              stroke-width="1.5"
+            />
+          </svg>
+        </span>
       </div>
-      <div class="sg-modal__info">
-        <h3 class="sg-modal__title"></h3>
-        <p class="sg-modal__price"></p>
-        <div class="sg-modal__desc"></div>
+    </div>
+  </div>
 
-        <div class="sg-modal__option sg-modal__option--color" hidden>
-          <p class="sg-modal__option-label">Color</p>
-          <div class="sg-swatches"></div>
-        </div>
+  <button type="button" class="sg-add-to-cart">
+    <span class="sg-add-to-cart__label">Add to Cart</span>
+    <span class="sg-arrow">&#8594;</span>
+  </button>
 
-        <div class="sg-modal__option sg-modal__option--size" hidden>
-          <p class="sg-modal__option-label">Size</p>
-          <select class="sg-size-select">
-            <option value="">Choose your size</option>
-          </select>
-        </div>
-
-        <button type="button" class="sg-add-to-cart">
-          <span class="sg-add-to-cart__label">Add to Cart</span>
-          <span class="sg-arrow">&#8594;</span>
-        </button>
-        <p class="sg-modal__error" hidden></p>
-      </div>
+  <p class="sg-modal__error" hidden></p>
+</div>
     </div>
   </div>
 </div>
