@@ -1,0 +1,64 @@
+
+
+
+
+
+
+
+
+{% schema %}
+{
+"name": "Hero + Header Banner",
+"settings": [
+{ "type": "header", "content": "Header Bar Settings" },
+    { "type": "color", "id": "header_bg_color", "label": "Header background color", "default": "#F5F5F5" },
+     { "type": "select", "id": "header_logo_type", "label": "Logo type", "options": [
+        { "value": "text", "label": "Custom Text" },
+        { "value": "image", "label": "Upload Logo Image" }
+      ], "default": "text" },
+ { "type": "text", "id": "header_logo_text", "label": "Logo text", "default": "TISSO VISON" },
+    { "type": "image_picker", "id": "header_logo_image", "label": "Logo image" },
+    { "type": "range", "id": "header_logo_height", "min": 16, "max": 100, "step": 2, "unit": "px", "label": "Logo height", "default": 22 },
+
+     { "type": "text", "id": "header_center_text", "label": "Header center text", "default": "Find the ideal gift for your loved ones." },
+    { "type": "range", "id": "header_center_text_size", "min": 10, "max": 32, "step": 1, "unit": "px", "label": "Header center text size", "default": 14 },
+    { "type": "select", "id": "header_text_alignment", "label": "Header center text alignment", "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ], "default": "center" },
+
+{ "type": "text", "id": "header_button_label", "label": "Header button label", "default": "CHOOSE GIFT" },
+    { "type": "url", "id": "header_button_link", "label": "Header button link" },
+    { "type": "color", "id": "header_button_bg", "label": "Header button background (default)", "default": "#F5D000" },
+    { "type": "color", "id": "header_button_text", "label": "Header button text color (default)", "default": "#000000" },
+
+    { "type": "header", "content": "Hero Section Settings" },
+    { "type": "image_picker", "id": "hero_bg_image", "label": "Hero background image" },
+    { "type": "richtext", "id": "hero_heading", "label": "Hero heading", "default": "<p>The Gift Guide</p>" },
+    { "type": "range", "id": "hero_heading_size", "min": 24, "max": 100, "step": 2, "unit": "px", "label": "Hero heading size (desktop)", "default": 56 },
+    { "type": "range", "id": "hero_heading_size_mobile", "min": 16, "max": 60, "step": 1, "unit": "px", "label": "Hero heading size (mobile)", "default": 32 },
+    { "type": "richtext", "id": "hero_description", "label": "Hero description", "default": "<p>Discover Joy: Your Ultimate Holiday Gift Destination.</p>" },
+
+    { "type": "text", "id": "hero_button_label", "label": "Hero button label", "default": "SHOP NOW" },
+    { "type": "url", "id": "hero_button_link", "label": "Hero button link" },
+    { "type": "color", "id": "hero_button_bg", "label": "Hero button background (default)", "default": "#000000" },
+    { "type": "color", "id": "hero_button_text", "label": "Hero button text color (default)", "default": "#FFFFFF" },
+
+     { "type": "header", "content": "Bottom Strip Text Settings" },
+    { "type": "text", "id": "bottom_text", "label": "Bottom strip text", "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL" },
+    { "type": "range", "id": "bottom_text_size", "min": 10, "max": 28, "step": 1, "unit": "px", "label": "Bottom text size", "default": 13 },
+    { "type": "color", "id": "bottom_bg_color", "label": "Bottom strip background color", "default": "#F5F5F5" },
+    { "type": "color", "id": "bottom_text_color", "label": "Bottom strip text color", "default": "#333333" }
+  ],
+
+
+   "presets": [
+    { "name": "Hero + Header Banner" }
+]
+}
+{% endschema %}
+
+
+
+
