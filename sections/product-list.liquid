@@ -442,7 +442,36 @@
     var currentProduct = null;
     var selectedOptions = {};
 
-   function formatMoney(cents) {
+    function formatMoney(cents, currency) {
+      var amount = (cents / 100).toFixed(2);
+      return currency ? (amount + ' ' + currency) : amount;
+    }
+
+    function openModal() {
+      modal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    modal.addEventListener('click', function (e) {
+      if (e.target.hasAttribute('data-sg-close')) closeModal();
+    });
+
+    function findVariant() {
+      if (!currentProduct) return null;
+      return currentProduct.variants.find(function (v) {
+        return currentProduct.options.every(function (optName, idx) {
+          var key = 'option' + (idx + 1);
+          return !selectedOptions[optName] || v[key] === selectedOptions[optName];
+        });
+      });
+    }
+
+function formatMoney(cents) {
   if (window.Shopify && typeof Shopify.formatMoney === 'function') {
     return Shopify.formatMoney(
       cents,
