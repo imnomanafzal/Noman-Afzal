@@ -329,7 +329,7 @@
 
     function formatMoney(cents, currency) {
       var amount = (cents / 100).toFixed(2);
-      return currency ? (amount + ' ') : amount;
+      return currency ? (amount + ' ' + currency) : amount;
     }
 
     function openModal() {
