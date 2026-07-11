@@ -1,5 +1,100 @@
 
+<div class="hb-wrapper" style="--bg-color: {{ section.settings.header_bg_color }};">
 
+  {%- comment -%} ================= HEADER BAR ================= {%- endcomment -%}
+  <div class="hb-header">
+    <div class="hb-header__logo">
+      {%- if section.settings.header_logo_type == 'image' and section.settings.header_logo_image != blank -%}
+        <a href="{{ routes.root_url }}">
+          <img
+        src="{{ section.settings.header_logo_image | image_url: width: 400 }}"
+            alt="{{ shop.name }}"
+            style="height: {{ section.settings.header_logo_height }}px; width: auto;"
+            loading="eager"
+            width="{{ section.settings.header_logo_image.width }}"
+            height="{{ section.settings.header_logo_image.height }}"
+          >
+        </a>
+      {%- else -%}
+<a href="{{ routes.root_url }}" class="hb-header__logo-text" style="font-size: {{ section.settings.header_logo_height }}px;">
+          {{ section.settings.header_logo_text | default: shop.name }}
+        </a>
+      {%- endif -%}
+    </div>
+
+       <div class="hb-header__cta">
+      {%- if section.settings.header_button_label != blank -%}
+        <a href="{{ section.settings.header_button_link | default: '#' }}" class="hb-btn hb-btn--header">
+          {{ section.settings.header_button_label }}
+          <span class="hb-arrow">&#8594;</span>
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="hb-header__center hb-align-{{ section.settings.header_text_alignment }}">
+      <p style="font-size: {{ section.settings.header_center_text_size }}px;">
+        {{ section.settings.header_center_text }}
+      </p>
+    </div>
+  </div>
+
+
+ {%- comment -%} ================= HERO SECTION ================= {%- endcomment -%}
+
+
+  <div class="hb-hero" style="background-image: url('{{ section.settings.hero_bg_image | image_url: width: 1800 }}');">
+    <div class="hb-hero__overlay"></div>
+    <div class="hb-hero__content">
+      <h1 class="hb-hero__heading" style="--heading-size-desktop: {{ section.settings.hero_heading_size }}px; --heading-size-mobile: {{ section.settings.hero_heading_size_mobile }}px;">
+        {{ section.settings.hero_heading }}
+      </h1>
+      <div class="hb-hero__desc">
+        {{ section.settings.hero_description }}
+      </div>
+      {%- if section.settings.hero_button_label != blank -%}
+        <a href="{{ section.settings.hero_button_link | default: '#' }}" class="hb-btn hb-btn--hero">
+          {{ section.settings.hero_button_label }}
+          <span class="hb-arrow">&#8594;</span>
+        </a>
+    {%- endif -%}
+    </div>
+  </div>
+
+
+ {%- comment -%} ================= BOTTOM STRIP TEXT ================= {%- endcomment -%}
+  {%- if section.settings.bottom_text != blank -%}
+    <div class="hb-bottom-strip" style="background-color: {{ section.settings.bottom_bg_color }};">
+      <p style="color: {{ section.settings.bottom_text_color }}; font-size: {{ section.settings.bottom_text_size }}px;">
+        {{ section.settings.bottom_text }}
+      </p>
+    </div>
+  {%- endif -%}
+
+</div>
+
+
+
+<style>
+ #shopify-section-{{ section.id }} .hb-wrapper {
+    width: 100%;
+  }
+
+/* ---------- HEADER BAR ---------- */
+  #shopify-section-{{ section.id }} .hb-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 14px 40px;
+    background-color: var(--bg-color, #F5F5F5);
+    border-bottom: 1px solid #e5e5e5;
+    flex-wrap: wrap;
+  }
+
+
+
+
+</style>
 
 
 
