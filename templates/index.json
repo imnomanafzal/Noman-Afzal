@@ -47,8 +47,8 @@
           "settings": {
             "image": "shopify://shop_images/black-bag-over-the-shoulder_925x_4cae5708-5e9e-4e7e-96ec-9649f0c20cd8.jpg",
             "product": "black-leather-bag",
-            "hotspot_x": 50,
-            "hotspot_y": 50
+            "hotspot_x": 27,
+            "hotspot_y": 26
           }
         },
         "image_product_a3MHzw": {
@@ -56,8 +56,8 @@
           "settings": {
             "image": "shopify://shop_images/man-adjusts-blue-tuxedo-bowtie_925x_55a49e12-d54b-488e-b7a0-ea4c201eb01f.jpg",
             "product": "blue-silk-tuxedo",
-            "hotspot_x": 50,
-            "hotspot_y": 50
+            "hotspot_x": 72,
+            "hotspot_y": 36
           }
         },
         "image_product_rCK6QD": {
@@ -65,8 +65,8 @@
           "settings": {
             "image": "shopify://shop_images/red-plaid-shirt_925x_70e9e5a8-8fc5-4d60-9a9a-cc2e0dd57cc9.jpg",
             "product": "chequered-red-shirt",
-            "hotspot_x": 50,
-            "hotspot_y": 50
+            "hotspot_x": 33,
+            "hotspot_y": 80
           }
         },
         "image_product_ngVGkp": {
@@ -74,8 +74,8 @@
           "settings": {
             "image": "shopify://shop_images/leather-jacket-and-tea_925x_2490cde1-7e61-4151-9a65-de8a763bc701.jpg",
             "product": "classic-leather-jacket",
-            "hotspot_x": 50,
-            "hotspot_y": 50
+            "hotspot_x": 85,
+            "hotspot_y": 53
           }
         },
         "image_product_qwKYhG": {
@@ -83,8 +83,8 @@
           "settings": {
             "image": "shopify://shop_images/casual-fashion-woman_925x_56b56608-f207-45c1-b677-bb5aa26c1c7a.jpg",
             "product": "classic-varsity-top",
-            "hotspot_x": 50,
-            "hotspot_y": 50
+            "hotspot_x": 69,
+            "hotspot_y": 23
           }
         },
         "image_product_BLrxNc": {
