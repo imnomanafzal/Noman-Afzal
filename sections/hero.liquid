@@ -44,19 +44,21 @@
 
   <div class="hb-hero" style="background-image: url('{{ section.settings.hero_bg_image | image_url: width: 1800 }}');">
     <div class="hb-hero__overlay"></div>
-    <div class="hb-hero__content">
-      <h1 class="hb-hero__heading" style="--heading-size-desktop: {{ section.settings.hero_heading_size }}px; --heading-size-mobile: {{ section.settings.hero_heading_size_mobile }}px;">
-        {{ section.settings.hero_heading }}
-      </h1>
-      <div class="hb-hero__desc">
-        {{ section.settings.hero_description }}
+    <div class="hb-hero__inner">
+      <div class="hb-hero__content">
+        <h1 class="hb-hero__heading" style="--heading-size-desktop: {{ section.settings.hero_heading_size }}px; --heading-size-mobile: {{ section.settings.hero_heading_size_mobile }}px;">
+          {{ section.settings.hero_heading }}
+        </h1>
+        <div class="hb-hero__desc">
+          {{ section.settings.hero_description }}
+        </div>
+        {%- if section.settings.hero_button_label != blank -%}
+          <a href="{{ section.settings.hero_button_link | default: '#' }}" class="hb-btn hb-btn--hero">
+            {{ section.settings.hero_button_label }}
+            <span class="hb-arrow">&#8594;</span>
+          </a>
+      {%- endif -%}
       </div>
-      {%- if section.settings.hero_button_label != blank -%}
-        <a href="{{ section.settings.hero_button_link | default: '#' }}" class="hb-btn hb-btn--hero">
-          {{ section.settings.hero_button_label }}
-          <span class="hb-arrow">&#8594;</span>
-        </a>
-    {%- endif -%}
     </div>
   </div>
 
@@ -196,9 +198,19 @@
     pointer-events: none;
   }
 
-  #shopify-section-{{ section.id }} .hb-hero__content {
+  /* Constrains hero content to the same max width as the product gallery
+     section so both sections line up visually at any zoom/viewport */
+  #shopify-section-{{ section.id }} .hb-hero__inner {
     position: relative;
     z-index: 2;
+    width: 100%;
+    max-width: {{ section.settings.hero_container_width | default: 1200 }}px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  #shopify-section-{{ section.id }} .hb-hero__content {
     padding: 60px;
     width: 600px;
     max-width: 100%;
@@ -259,6 +271,10 @@
       display: none;
     }
 
+    #shopify-section-{{ section.id }} .hb-hero__inner {
+      max-width: 100%;
+    }
+
     #shopify-section-{{ section.id }} .hb-hero__content {
       background-color: #FFFFFF;
       padding: 32px 24px;
@@ -314,6 +330,7 @@
 
     { "type": "header", "content": "Hero Section Settings" },
     { "type": "image_picker", "id": "hero_bg_image", "label": "Hero background image" },
+    { "type": "range", "id": "hero_container_width", "min": 800, "max": 1600, "step": 20, "unit": "px", "label": "Hero content max width", "info": "Match this to your product gallery's container width so both sections align.", "default": 1200 },
     { "type": "richtext", "id": "hero_heading", "label": "Hero heading", "default": "<p>The Gift Guide</p>" },
     { "type": "range", "id": "hero_heading_size", "min": 24, "max": 100, "step": 2, "unit": "px", "label": "Hero heading size (desktop)", "default": 56 },
     { "type": "range", "id": "hero_heading_size_mobile", "min": 16, "max": 60, "step": 1, "unit": "px", "label": "Hero heading size (mobile)", "default": 32 },
@@ -337,7 +354,3 @@
 ]
 }
 {% endschema %}
-
-
-
-
