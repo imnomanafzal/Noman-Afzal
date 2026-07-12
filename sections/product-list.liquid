@@ -280,7 +280,14 @@
   width: 100%;
   gap: 0;
 }
+.sg-swatch {
+  position: relative;
+  border: 1px solid #b8b8b8;
+}
 
+.sg-swatch.is-active {
+  border: 3px solid currentColor;
+}
 #shopify-section-{{ section.id }} .sg-swatch {
   position: relative;
   flex: 1 1 0;
@@ -303,11 +310,10 @@
 
 #shopify-section-{{ section.id }} .sg-swatch.is-active {
   z-index: 2;
-  border: 3px solid #000;
+  border: 3px solid var(--swatch-color, #000);
   padding: 7px 10px;
   font-weight: 400;
 }
-
 /* Size dropdown */
 #shopify-section-{{ section.id }} .sg-size-wrapper {
   position: relative;
@@ -654,34 +660,38 @@ function renderProduct(product) {
     if (isColor) {
       colorWrap.hidden = false;
 
-      values.forEach(function (value, valueIndex) {
-        var button = document.createElement('button');
+values.forEach(function (value, valueIndex) {
+  var button = document.createElement('button');
 
-        button.type = 'button';
-        button.className = 'sg-swatch';
-        button.textContent = value;
-        button.dataset.value = value;
+  button.type = 'button';
+  button.className = 'sg-swatch';
+  button.textContent = value;
+  button.dataset.value = value;
 
-        if (valueIndex === 0) {
-          button.classList.add('is-active');
-          selectedOptions[optionName] = value;
-        }
+  // Yahan dynamic color set karo
+  var colorGuess = value.toLowerCase().replace(/\s+/g, '');
+  button.style.setProperty('--swatch-color', colorGuess);
 
-        button.addEventListener('click', function () {
-          swatchesEl
-            .querySelectorAll('.sg-swatch')
-            .forEach(function (swatch) {
-              swatch.classList.remove('is-active');
-            });
+  if (valueIndex === 0) {
+    button.classList.add('is-active');
+    selectedOptions[optionName] = value;
+  }
 
-          button.classList.add('is-active');
-          selectedOptions[optionName] = value;
-
-          updatePriceAndButton();
-        });
-
-        swatchesEl.appendChild(button);
+  button.addEventListener('click', function () {
+    swatchesEl
+      .querySelectorAll('.sg-swatch')
+      .forEach(function (swatch) {
+        swatch.classList.remove('is-active');
       });
+
+    button.classList.add('is-active');
+    selectedOptions[optionName] = value;
+
+    updatePriceAndButton();
+  });
+
+  swatchesEl.appendChild(button);
+});
 
       return;
     }
